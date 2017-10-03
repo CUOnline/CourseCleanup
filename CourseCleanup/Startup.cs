@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using Hangfire;
+using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(CourseCleanup.Startup))]
@@ -9,6 +10,14 @@ namespace CourseCleanup
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+
+            GlobalConfiguration.Configuration.UseSqlServerStorage("HangFire")
+                                 .UseColouredConsoleLogProvider();
+
+            app.UseHangfireServer(new BackgroundJobServerOptions()
+            {
+                WorkerCount = 1 // Single worker
+            });
         }
     }
 }

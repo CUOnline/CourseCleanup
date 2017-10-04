@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseCleanup.BLL", "Course
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseCleanup.Interface", "CourseCleanup.Interface\CourseCleanup.Interface.csproj", "{D11BA07A-74AA-496D-BE89-221C0827627A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Canvas.Clients", "Canvas.Clients\Canvas.Clients.csproj", "{D4B5F052-7514-407F-8AC0-54F190388408}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{D11BA07A-74AA-496D-BE89-221C0827627A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D11BA07A-74AA-496D-BE89-221C0827627A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D11BA07A-74AA-496D-BE89-221C0827627A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4B5F052-7514-407F-8AC0-54F190388408}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4B5F052-7514-407F-8AC0-54F190388408}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4B5F052-7514-407F-8AC0-54F190388408}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4B5F052-7514-407F-8AC0-54F190388408}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

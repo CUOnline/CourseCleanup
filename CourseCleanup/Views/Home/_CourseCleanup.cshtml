@@ -1,0 +1,44 @@
+﻿@using CourseCleanup.Models
+@model HomeViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <div class="logo-container">
+                <img id="logo" src="~/Content/cu-online.png" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    @Html.Partial("_IndexHeader")
+
+                    <section id="loginForm">
+                        @using (Html.BeginForm("UploadMetroEnrollment", "Home", FormMethod.Post, new { @class = "", ReturnUrl = ViewBag.ReturnUrl, enctype = "multipart/form-data" }))
+                        {
+                            @Html.HiddenFor(m => m.UserEmail);
+
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="form-group input-group">
+                                @Html.LabelFor(m => m.StartTerm, new { @class = "control-label" })
+                                @Html.DropDownListFor(m => m.StartTerm, Model.Terms, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group input-group">
+                                @Html.LabelFor(m => m.EndTerm, new { @class = "control-label" })
+                                @Html.DropDownListFor(m => m.EndTerm, Model.Terms, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </div>
+                        }
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

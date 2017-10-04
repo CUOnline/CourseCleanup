@@ -8,5 +8,10 @@ namespace CourseCleanup.Models
 {
     public class DeletedCourse : ModelBase
     {
+        public string CourseName { get; set; }
+        public string CourseSISID { get; set; }
+        public string CourseCode { get; set; }
+        public string Term { get; set; }
+        public string Status { get; set; }
     }
 }

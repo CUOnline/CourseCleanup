@@ -1,4 +1,4 @@
-﻿[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(CourseCleanup.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(CourseCleanup.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(CourseCleanup.App_Start.NinjectWebCommon), "Stop")]
 
 namespace CourseCleanup.App_Start
@@ -10,24 +10,27 @@ namespace CourseCleanup.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
-    using CUHangFire.Shared.Interfaces;
     using CourseCleanup.Jobs;
-    using Hangfire;
+    using CUHangFire.Shared.Interfaces;
+    using CourseCleanup.BLL;
+    using CourseCleanup.Interface.BLL;
+    using CourseCleanup.Repository;
+    using CourseCleanup.Interface.Repository;
 
-    public class NinjectWebCommon
+    public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start()
+        public static void Start() 
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-
+        
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -35,7 +38,7 @@ namespace CourseCleanup.App_Start
         {
             bootstrapper.ShutDown();
         }
-
+        
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -64,9 +67,9 @@ namespace CourseCleanup.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            GlobalConfiguration.Configuration.UseNinjectActivator(kernel);
-
+            kernel.Bind<IDeletedCourseBLL>().To<DeletedCourseBLL>();
             kernel.Bind<ICourseCleanupJob>().To<CourseCleanupJob>();
-        }
+            kernel.Bind<IDeletedCourseRepository>().To<DeletedCourseRepository>();
+        }        
     }
 }

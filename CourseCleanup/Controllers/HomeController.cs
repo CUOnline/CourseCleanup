@@ -11,11 +11,21 @@ using System.Web.Mvc;
 using Canvas.Clients.Models.Enums;
 using Canvas.Clients.Models;
 using Microsoft.Owin.Security;
+using CourseCleanup.Interface.BLL;
+using CourseCleanup.Jobs;
+using Hangfire;
+using CUHangFire.Shared.Interfaces;
 
 namespace CourseCleanup.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IDeletedCourseBLL deletedCourseBll;
+
+        public HomeController(IDeletedCourseBLL deletedCourseBll)
+        {
+            this.deletedCourseBll = deletedCourseBll;
+        }
 
         public async Task<ActionResult> Index()
         {
@@ -53,15 +63,28 @@ namespace CourseCleanup.Controllers
                     }).ToList()
                 };
 
-                model.Terms.Insert(0, new SelectListItem() { Text = "Select Term", Value = null });
+                //model.Terms.Insert(0, new SelectListItem() { Text = "Select Term", Value = null });
 
                 model.UserEmail = await GetCurrentUserEmail();
 
                 return View(model);
             }
-
         }
 
+        [HttpPost]
+        public async Task<ActionResult> Index(HomeViewModel viewModel)
+        {
+            BackgroundJob.Enqueue<ICourseCleanupJob>(x => x.Execute(viewModel.StartTermId, viewModel.EndTermId, viewModel.UserEmail));
+
+            return View();
+        }
+
+        public ActionResult DeletedCourses()
+        {
+            var deletedCourses = deletedCourseBll.GetAll();
+
+            return View(deletedCourses);
+        }
 
         #region LoginHelper
         [AllowAnonymous]

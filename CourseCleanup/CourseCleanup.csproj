@@ -68,6 +68,9 @@
     <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.Web.Common.3.2.3.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.MVC5.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -268,6 +271,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Home\_IndexHeader.cshtml" />
     <Content Include="Views\Home\_CourseCleanup.cshtml" />
+    <Content Include="Views\Home\DeletedCourses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -289,6 +293,22 @@
     <ProjectReference Include="..\Canvas.Clients\Canvas.Clients.csproj">
       <Project>{d4b5f052-7514-407f-8ac0-54f190388408}</Project>
       <Name>Canvas.Clients</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CourseCleanup.BLL\CourseCleanup.BLL.csproj">
+      <Project>{3C17B895-7C19-434E-A905-C0D1FE2FBB11}</Project>
+      <Name>CourseCleanup.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CourseCleanup.Interface\CourseCleanup.Interface.csproj">
+      <Project>{D11BA07A-74AA-496D-BE89-221C0827627A}</Project>
+      <Name>CourseCleanup.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CourseCleanup.Models\CourseCleanup.Models.csproj">
+      <Project>{2CDF1514-F14D-4BBC-90FB-E29176084D4D}</Project>
+      <Name>CourseCleanup.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CourseCleanup.Repository\CourseCleanup.Repository.csproj">
+      <Project>{53DBEF5B-9DD9-4E3E-AFA4-C1DB6E918A1A}</Project>
+      <Name>CourseCleanup.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

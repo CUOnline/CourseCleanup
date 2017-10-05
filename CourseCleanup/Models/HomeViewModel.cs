@@ -21,7 +21,7 @@ namespace CourseCleanup.Models
 
         public string UserEmail { get; set; }
 
-        public List<SelectListItem> Terms { get; set; }
+        public IEnumerable<SelectListItem> Terms { get; set; }
         
         public bool Authorized { get; set; }
     }

@@ -7,14 +7,8 @@ using System.Threading.Tasks;
 
 namespace Canvas.Clients.Models
 {
-    public class Account
+    public class Account : BaseModel
     {
-        [JsonProperty(PropertyName = "id")]
-        public string Id { get; set; }
-
-        [JsonProperty(PropertyName = "name")]
-        public string Name { get; set; }
-
         [JsonProperty(PropertyName = "parent_account_id")]
         public string ParentAccountId { get; set; }
 

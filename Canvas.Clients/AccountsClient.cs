@@ -65,7 +65,16 @@ namespace Canvas.Clients
             // Remove Default Term, Migration, Orientation, and Sandbox EnrollmentTerms
             termsList.RemoveAll(x => x.Id == "1" || x.Id == "35" || x.Id == "38" || x.Id == "39");
 
+            termsList.Sort();
+            termsList.Reverse();
+
             return termsList;
+        }
+
+        public async Task<IEnumerable<Course>> GetUnpublishedCoursesForTerm(string accountId, string termId)
+        {
+            ApiPath = ApiController + $@"/{accountId}/courses?published=false&enrollment_term_id={termId}";
+            return await ExecuteGetAll<Course>(ApiPath);
         }
     }
 }

@@ -16,8 +16,9 @@
                     @Html.Partial("_IndexHeader")
 
                     <section id="loginForm">
-                        @using (Html.BeginForm("UploadMetroEnrollment", "Home", FormMethod.Post, new { @class = "", ReturnUrl = ViewBag.ReturnUrl, enctype = "multipart/form-data" }))
+                        @using (Html.BeginForm())
                         {
+                            @Html.HiddenFor(m => m.Terms)
                             @Html.HiddenFor(m => m.UserEmail);
 
                             @Html.AntiForgeryToken()

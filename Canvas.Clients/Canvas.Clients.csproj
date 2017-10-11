@@ -47,12 +47,21 @@
   <ItemGroup>
     <Compile Include="AccountsClient.cs" />
     <Compile Include="ClientBase.cs" />
+    <Compile Include="CoursesClient.cs" />
     <Compile Include="CustomDelegatingHandler.cs" />
     <Compile Include="HttpClientWrapperBase.cs" />
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\Assignment.cs" />
+    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\Discussion.cs" />
     <Compile Include="Models\EnrollmentTerm.cs" />
     <Compile Include="Models\Enums\RoleNames.cs" />
     <Compile Include="Models\Enums\WorkflowState.cs" />
+    <Compile Include="Models\File.cs" />
+    <Compile Include="Models\Module.cs" />
+    <Compile Include="Models\Page.cs" />
+    <Compile Include="Models\Quiz.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

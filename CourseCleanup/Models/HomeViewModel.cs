@@ -11,13 +11,9 @@ namespace CourseCleanup.Models
     {
         [Display(Name = "Start Term")]
         public string StartTerm { get; set; }
-
-        public int StartTermId { get; set; }
-
+        
         [Display(Name = "End Term")]
         public string EndTerm { get; set; }
-
-        public int EndTermId { get; set; }
 
         public string UserEmail { get; set; }
 

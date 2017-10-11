@@ -7,14 +7,8 @@ using System.Threading.Tasks;
 
 namespace Canvas.Clients.Models
 {
-    public class User
+    public class User : BaseModel
     {
-        [JsonProperty(PropertyName = "id")]
-        public string Id { get; set; }
-
-        [JsonProperty(PropertyName = "name")]
-        public string Name { get; set; }
-
         [JsonProperty(PropertyName = "sortable_name")]
         public string SortableName { get; set; }
         

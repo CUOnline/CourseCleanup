@@ -44,8 +44,36 @@ namespace Canvas.Clients
 
         protected async Task<List<T>> ExecuteGetAll<T>(string apiPath)
         {
-            var response = await Client().GetStringAsync(baseUrl + "/" + apiPath);
-            return JsonConvert.DeserializeObject<List<T>>(response);
+            var collection = new List<T>();
+            var nextLink = string.Empty;
+            do
+            {
+                var response = string.IsNullOrWhiteSpace(nextLink) ? await Client().GetAsync(baseUrl + "/" + apiPath) : await Client().GetAsync(nextLink);
+                nextLink = GetNextLink(response);
+                collection.AddRange(JsonConvert.DeserializeObject<List<T>>(await response.Content.ReadAsStringAsync()));
+            }
+            while (!string.IsNullOrWhiteSpace(nextLink));
+
+            return collection;
+        }
+
+        private string GetNextLink(HttpResponseMessage message)
+        {
+            if(message.Headers.TryGetValues("Link", out IEnumerable<string> values))
+            {
+                var links = values.First().Split(',');
+
+                foreach(var relLink in links)
+                {
+                    var link = relLink.Split(';');
+                    if (link[1].Contains("next"))
+                    {
+                        return link[0].Substring(1, link[0].Length - 2);
+                    }
+                }
+            }
+            
+            return string.Empty;
         }
 
         protected async Task<string> ExecutePost(string apiPath, string json)

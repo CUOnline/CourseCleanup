@@ -29,24 +29,24 @@ namespace CourseCleanup.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var authenticateResult = await HttpContext.GetOwinContext().Authentication.AuthenticateAsync("ExternalCookie");
-            if (authenticateResult == null)
-            {
-                return RedirectToAction("ExternalLogin");
-            }
+            //var authenticateResult = await HttpContext.GetOwinContext().Authentication.AuthenticateAsync("ExternalCookie");
+            //if (authenticateResult == null)
+            //{
+            //    return RedirectToAction("ExternalLogin");
+            //}
 
-            if (!(await Authorized(ConfigurationManager.AppSettings["CanvasAccountId"])))
-            {
-                // return unauthorized view
-                var model = new HomeViewModel()
-                {
-                    Authorized = false,
-                    Terms = new List<SelectListItem>()
-                };
-                return View(model);
-            }
-            else
-            {
+            //if (!(await Authorized(ConfigurationManager.AppSettings["CanvasAccountId"])))
+            //{
+            //    // return unauthorized view
+            //    var model = new HomeViewModel()
+            //    {
+            //        Authorized = false,
+            //        Terms = new List<SelectListItem>()
+            //    };
+            //    return View(model);
+            //}
+            //else
+            //{
 
                 var accountId = ConfigurationManager.AppSettings["CanvasAccountId"];
                 var client = new AccountsClient();
@@ -68,15 +68,26 @@ namespace CourseCleanup.Controllers
                 model.UserEmail = await GetCurrentUserEmail();
 
                 return View(model);
-            }
+            //}
         }
 
         [HttpPost]
         public async Task<ActionResult> Index(HomeViewModel viewModel)
         {
-            BackgroundJob.Enqueue<ICourseCleanupJob>(x => x.Execute(viewModel.StartTermId, viewModel.EndTermId, viewModel.UserEmail));
+            BackgroundJob.Enqueue<ICourseCleanupJob>(x => x.Execute(int.Parse(viewModel.StartTerm), int.Parse(viewModel.EndTerm), viewModel.UserEmail));
 
-            return View();
+
+            var accountId = ConfigurationManager.AppSettings["CanvasAccountId"];
+            var client = new AccountsClient();
+
+            var enrollmentTerms = await client.GetEnrollmentTerms(accountId);
+            viewModel.Terms = enrollmentTerms.Select(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            }).ToList();
+
+            return View(viewModel);
         }
 
         public ActionResult DeletedCourses()

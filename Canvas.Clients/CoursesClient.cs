@@ -17,6 +17,12 @@ namespace Canvas.Clients
             return await ExecuteGet<Course>(ApiPath);
         }
 
+        public async Task<List<Enrollment>> GetEnrollments(string courseId)
+        {
+            ApiPath = ApiController + $@"/{courseId}/enrollments";
+            return await ExecuteGetAll<Enrollment>(ApiPath);
+        }
+
         public async Task<List<Assignment>> GetCourseAssignments(string courseId)
         {
             ApiPath = ApiController + $@"/{courseId}/assignments";

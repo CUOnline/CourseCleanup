@@ -20,19 +20,20 @@ namespace CourseCleanup.Jobs
 
 
             // Start by getting all enrollment terms between range
-            var subTerms = enrollmentTerms.SkipWhile(x => x.Id != startTermId.ToString()).TakeWhile(x => x.Id != endTermId.ToString()); // BUG won't include the endterm!!!!!
+            var subTerms = enrollmentTerms.SkipWhile(x => x.Id != startTermId.ToString()).TakeWhile(x => x.Id != endTermId.ToString()).ToList();
+            subTerms.Add(enrollmentTerms.First(x => x.Id == endTermId.ToString()));
 
-            // foreach enrollment term, get all unpublished courses, checking for course shells
-            var courseShells = new List<Course>();
+            // foreach enrollment term, get all unpublished courses, checking for unused courses
+            var unusedCourses = new List<Course>();
             foreach (var term in subTerms)
             {
                 var courses = await accountsClient.GetUnpublishedCoursesForTerm(accountId, term.Id);
 
                 foreach(var course in courses)
                 {
-                    if(await IsCourseShell(course))
+                    if(await IsUnusedCourse(course))
                     {
-                        courseShells.Add(course);
+                        unusedCourses.Add(course);
                     }
                 }
             }
@@ -44,12 +45,18 @@ namespace CourseCleanup.Jobs
         /// <summary>
         /// A Course Shell is an unpublished course that has no content or activity
         /// </summary>
-        private async Task<bool> IsCourseShell(Course course)
+        private async Task<bool> IsUnusedCourse(Course course)
         {
             var client = new CoursesClient();
             
             var courseWithSyllabus = await client.GetWithSyllabusBody(course.Id);
             if(!string.IsNullOrWhiteSpace(courseWithSyllabus.SyllabusBody))
+            {
+                return false;
+            }
+
+            var enrollments = await client.GetEnrollments(course.Id);
+            if(enrollments.Any(x => x.LastActivityAt != null))
             {
                 return false;
             }

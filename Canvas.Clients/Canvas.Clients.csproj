@@ -55,6 +55,7 @@
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Discussion.cs" />
+    <Compile Include="Models\Enrollment.cs" />
     <Compile Include="Models\EnrollmentTerm.cs" />
     <Compile Include="Models\Enums\RoleNames.cs" />
     <Compile Include="Models\Enums\WorkflowState.cs" />

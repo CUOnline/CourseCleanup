@@ -20,9 +20,9 @@ namespace CourseCleanup.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IDeletedCourseBLL deletedCourseBll;
+        private readonly IUnusedCourseBLL deletedCourseBll;
 
-        public HomeController(IDeletedCourseBLL deletedCourseBll)
+        public HomeController(IUnusedCourseBLL deletedCourseBll)
         {
             this.deletedCourseBll = deletedCourseBll;
         }

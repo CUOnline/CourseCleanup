@@ -69,9 +69,9 @@ namespace CourseCleanup.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IDeletedCourseBLL>().To<DeletedCourseBLL>();
+            kernel.Bind<IUnusedCourseBLL>().To<UnusedCourseBLL>();
             kernel.Bind<ICourseCleanupJob>().To<CourseCleanupJob>();
-            kernel.Bind<IDeletedCourseRepository>().To<DeletedCourseRepository>();
+            kernel.Bind<IUnusedCourseRepository>().To<UnusedCourseRepository>();
         }        
     }
 }

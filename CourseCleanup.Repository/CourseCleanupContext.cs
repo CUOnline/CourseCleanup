@@ -10,14 +10,14 @@ namespace CourseCleanup.Repository
     {
         public CourseCleanupContext() : base("CourseCleanupContext") { }
 
-        public DbSet<DeletedCourse> DeletedCourses { get; set; }
+        public DbSet<UnusedCourse> UnusedCourses { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Properties<DateTime>().Configure(c => c.HasColumnType("DateTime2"));
 
-            modelBuilder.Configurations.Add(new DeletedCourseMap());
+            modelBuilder.Configurations.Add(new UnusedCourseMap());
 
             base.OnModelCreating(modelBuilder);
         }

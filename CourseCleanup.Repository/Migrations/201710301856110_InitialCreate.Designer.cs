@@ -13,7 +13,7 @@ namespace CourseCleanup.Repository.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201709282202290_InitialCreate"; }
+            get { return "201710301856110_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

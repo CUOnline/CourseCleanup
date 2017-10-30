@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace CourseCleanup.Repository.Maps
 {
-    public class DeletedCourseMap : EntityTypeConfiguration<DeletedCourse>
+    public class UnusedCourseMap : EntityTypeConfiguration<UnusedCourse>
     {
-        public DeletedCourseMap()
+        public UnusedCourseMap()
         {
 
         }

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CourseCleanup.Interface.BLL
+namespace CourseCleanup.Interface.Repository
 {
-    public interface IDeletedCourseBLL : IBLL<DeletedCourse>
+    public interface IUnusedCourseRepository : IRepository<UnusedCourse>
     {
     }
 }

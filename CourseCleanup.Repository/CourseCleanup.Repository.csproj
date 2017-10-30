@@ -48,16 +48,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CourseCleanupContext.cs" />
-    <Compile Include="DeletedCourseRepository.cs" />
-    <Compile Include="Maps\DeletedCourseMap.cs" />
-    <Compile Include="Migrations\201709282202290_InitialCreate.cs" />
-    <Compile Include="Migrations\201709282202290_InitialCreate.Designer.cs">
-      <DependentUpon>201709282202290_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201710301856110_InitialCreate.cs" />
+    <Compile Include="Migrations\201710301856110_InitialCreate.Designer.cs">
+      <DependentUpon>201710301856110_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201710032131573_BuildDeletedCourseModel.cs" />
-    <Compile Include="Migrations\201710032131573_BuildDeletedCourseModel.Designer.cs">
-      <DependentUpon>201710032131573_BuildDeletedCourseModel.cs</DependentUpon>
-    </Compile>
+    <Compile Include="UnusedCourseRepository.cs" />
+    <Compile Include="Maps\UnusedCourseMap.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryBase.cs" />
@@ -77,11 +73,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201709282202290_InitialCreate.resx">
-      <DependentUpon>201709282202290_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710032131573_BuildDeletedCourseModel.resx">
-      <DependentUpon>201710032131573_BuildDeletedCourseModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710301856110_InitialCreate.resx">
+      <DependentUpon>201710301856110_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

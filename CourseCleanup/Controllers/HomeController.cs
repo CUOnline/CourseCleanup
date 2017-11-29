@@ -12,41 +12,41 @@ using Canvas.Clients.Models.Enums;
 using Canvas.Clients.Models;
 using Microsoft.Owin.Security;
 using CourseCleanup.Interface.BLL;
-using CourseCleanup.Jobs;
-using Hangfire;
-using CUHangFire.Shared.Interfaces;
+using CourseCleanup.Models.Enums;
 
 namespace CourseCleanup.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IUnusedCourseBLL deletedCourseBll;
+        private readonly IUnusedCourseBLL unusedCourseBLL;
+        private readonly ICourseSearchQueueBLL courseSearchQueueBll;
 
-        public HomeController(IUnusedCourseBLL deletedCourseBll)
+        public HomeController(IUnusedCourseBLL deletedCourseBll, ICourseSearchQueueBLL courseSearchQueueBll)
         {
-            this.deletedCourseBll = deletedCourseBll;
+            this.unusedCourseBLL = deletedCourseBll;
+            this.courseSearchQueueBll = courseSearchQueueBll;
         }
 
         public async Task<ActionResult> Index()
         {
-            //var authenticateResult = await HttpContext.GetOwinContext().Authentication.AuthenticateAsync("ExternalCookie");
-            //if (authenticateResult == null)
-            //{
-            //    return RedirectToAction("ExternalLogin");
-            //}
+            var authenticateResult = await HttpContext.GetOwinContext().Authentication.AuthenticateAsync("ExternalCookie");
+            if (authenticateResult == null)
+            {
+                return RedirectToAction("ExternalLogin");
+            }
 
-            //if (!(await Authorized(ConfigurationManager.AppSettings["CanvasAccountId"])))
-            //{
-            //    // return unauthorized view
-            //    var model = new HomeViewModel()
-            //    {
-            //        Authorized = false,
-            //        Terms = new List<SelectListItem>()
-            //    };
-            //    return View(model);
-            //}
-            //else
-            //{
+            if (!(await Authorized(ConfigurationManager.AppSettings["CanvasAccountId"])))
+            {
+                // return unauthorized view
+                var model = new HomeViewModel()
+                {
+                    Authorized = false,
+                    Terms = new List<SelectListItem>()
+                };
+                return View(model);
+            }
+            else
+            {
 
                 var accountId = ConfigurationManager.AppSettings["CanvasAccountId"];
                 var client = new AccountsClient();
@@ -60,7 +60,9 @@ namespace CourseCleanup.Controllers
                     {
                         Text = x.Name,
                         Value = x.Id.ToString()
-                    }).ToList()
+                    }).ToList(),
+                    CourseSearchQueues = await courseSearchQueueBll.GetAllAsync(),
+                    UserEmail = await GetCurrentUserEmail()
                 };
 
                 //model.Terms.Insert(0, new SelectListItem() { Text = "Select Term", Value = null });
@@ -68,15 +70,20 @@ namespace CourseCleanup.Controllers
                 model.UserEmail = await GetCurrentUserEmail();
 
                 return View(model);
-            //}
+            }
         }
 
         [HttpPost]
         public async Task<ActionResult> Index(HomeViewModel viewModel)
         {
-            BackgroundJob.Enqueue<ICourseCleanupJob>(x => x.Execute(int.Parse(viewModel.StartTerm), int.Parse(viewModel.EndTerm), viewModel.UserEmail));
-
-
+            courseSearchQueueBll.Add(new CourseSearchQueue()
+            {
+                StartTermId = viewModel.StartTerm,
+                EndTermId = viewModel.EndTerm,
+                Status = SearchStatus.New,
+                SubmittedByEmail = viewModel.UserEmail
+            });
+           
             var accountId = ConfigurationManager.AppSettings["CanvasAccountId"];
             var client = new AccountsClient();
 
@@ -87,12 +94,14 @@ namespace CourseCleanup.Controllers
                 Value = x.Id.ToString()
             }).ToList();
 
+            viewModel.CourseSearchQueues = await courseSearchQueueBll.GetAllAsync();
+
             return View(viewModel);
         }
 
         public ActionResult DeletedCourses()
         {
-            var deletedCourses = deletedCourseBll.GetAll();
+            var deletedCourses = unusedCourseBLL.GetAll();
 
             return View(deletedCourses);
         }

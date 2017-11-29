@@ -41,8 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\IBLL.cs" />
+    <Compile Include="BLL\ICourseSearchQueueBLL.cs" />
     <Compile Include="BLL\IUnusedCourseBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ICourseSearchQueueRepository.cs" />
     <Compile Include="Repository\IUnusedCourseRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
   </ItemGroup>

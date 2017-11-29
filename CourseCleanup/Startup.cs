@@ -11,7 +11,7 @@ namespace CourseCleanup
         {
             ConfigureAuth(app);
 
-            GlobalConfiguration.Configuration.UseSqlServerStorage("HangFire")
+            GlobalConfiguration.Configuration.UseSqlServerStorage("CourseCleanupContext")
                                  .UseColouredConsoleLogProvider();
 
             app.UseHangfireServer(new BackgroundJobServerOptions()

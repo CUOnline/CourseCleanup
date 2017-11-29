@@ -11,6 +11,7 @@ namespace CourseCleanup.Repository
         public CourseCleanupContext() : base("CourseCleanupContext") { }
 
         public DbSet<UnusedCourse> UnusedCourses { get; set; }
+        public DbSet<CourseSearchQueue> CourseSearchQueues { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -18,6 +19,7 @@ namespace CourseCleanup.Repository
             modelBuilder.Properties<DateTime>().Configure(c => c.HasColumnType("DateTime2"));
 
             modelBuilder.Configurations.Add(new UnusedCourseMap());
+            modelBuilder.Configurations.Add(new CourseSearchQueueMap());
 
             base.OnModelCreating(modelBuilder);
         }

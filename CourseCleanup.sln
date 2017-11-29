@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseCleanup.Interface", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Canvas.Clients", "Canvas.Clients\Canvas.Clients.csproj", "{D4B5F052-7514-407F-8AC0-54F190388408}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseCleanup.Service", "CourseCleanup.Service\CourseCleanup.Service.csproj", "{D5E61B36-6C57-43AE-8C52-589BDB706E63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{D4B5F052-7514-407F-8AC0-54F190388408}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4B5F052-7514-407F-8AC0-54F190388408}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4B5F052-7514-407F-8AC0-54F190388408}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5E61B36-6C57-43AE-8C52-589BDB706E63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5E61B36-6C57-43AE-8C52-589BDB706E63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5E61B36-6C57-43AE-8C52-589BDB706E63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5E61B36-6C57-43AE-8C52-589BDB706E63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

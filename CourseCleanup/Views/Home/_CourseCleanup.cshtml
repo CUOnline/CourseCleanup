@@ -38,6 +38,36 @@
                             </div>
                         }
                     </section>
+
+                    <hr />
+                    <table>
+                        <caption>Course Search Status</caption>
+                        <thead>
+                            <tr>
+                                <th><label class="control-label">Date Created</label></th>
+                                <th><label class="control-label">Last Updated</label></th>
+                                <th><label class="control-label">Start Term</label></th>
+                                <th><label class="control-label">End Term</label></th>
+                                <th><label class="control-label">Submitted By</label></th>
+                                <th><label class="control-label">Status</label></th>
+                                <th><label class="control-label">Status Message</label></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(var search in Model.CourseSearchQueues)
+                            {
+                                <tr>
+                                    <td>@search.DateCreated</td>
+                                    <td>@search.LastUpdated</td>
+                                    <td>@search.StartTermId</td>
+                                    <td>@search.EndTermId</td>
+                                    <td>@search.SubmittedByEmail</td>
+                                    <td>@search.Status</td>
+                                    <td>@search.StatusMessage</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

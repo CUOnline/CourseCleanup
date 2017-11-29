@@ -10,8 +10,6 @@ namespace CourseCleanup.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
-    using CourseCleanup.Jobs;
-    using CUHangFire.Shared.Interfaces;
     using CourseCleanup.BLL;
     using CourseCleanup.Interface.BLL;
     using CourseCleanup.Repository;
@@ -70,8 +68,10 @@ namespace CourseCleanup.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IUnusedCourseBLL>().To<UnusedCourseBLL>();
-            kernel.Bind<ICourseCleanupJob>().To<CourseCleanupJob>();
             kernel.Bind<IUnusedCourseRepository>().To<UnusedCourseRepository>();
+
+            kernel.Bind<ICourseSearchQueueBLL>().To<CourseSearchQueueBLL>();
+            kernel.Bind<ICourseSearchQueueRepository>().To<CourseSearchQueueRepository>();
         }        
     }
 }

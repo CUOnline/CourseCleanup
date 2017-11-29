@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CourseSearchQueue.cs" />
     <Compile Include="Enums\CourseStatus.cs" />
+    <Compile Include="Enums\SearchStatus.cs" />
     <Compile Include="UnusedCourse.cs" />
     <Compile Include="ModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

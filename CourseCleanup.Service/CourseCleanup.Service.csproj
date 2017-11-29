@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D5E61B36-6C57-43AE-8C52-589BDB706E63}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>CourseCleanup.Service</RootNamespace>
+    <AssemblyName>CourseCleanup.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bindings.cs" />
+    <Compile Include="CUOUnusedCourseDelete.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CUOUnusedCourseDelete.Designer.cs">
+      <DependentUpon>CUOUnusedCourseDelete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CUOUnusedCourseSearch.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CUOUnusedCourseSearch.Designer.cs">
+      <DependentUpon>CUOUnusedCourseSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FileLogger.cs" />
+    <Compile Include="IUnusedCourseSearchManager.cs" />
+    <Compile Include="ProjectInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProjectInstaller.Designer.cs">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UnusedCourseSearchManager.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="AppSettings.config" />
+    <None Include="ConnectionStrings.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Readme\Elmah.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Canvas.Clients\Canvas.Clients.csproj">
+      <Project>{D4B5F052-7514-407F-8AC0-54F190388408}</Project>
+      <Name>Canvas.Clients</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CourseCleanup.BLL\CourseCleanup.BLL.csproj">
+      <Project>{3c17b895-7c19-434e-a905-c0d1fe2fbb11}</Project>
+      <Name>CourseCleanup.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CourseCleanup.Interface\CourseCleanup.Interface.csproj">
+      <Project>{d11ba07a-74aa-496d-be89-221c0827627a}</Project>
+      <Name>CourseCleanup.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CourseCleanup.Models\CourseCleanup.Models.csproj">
+      <Project>{2cdf1514-f14d-4bbc-90fb-e29176084d4d}</Project>
+      <Name>CourseCleanup.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CourseCleanup.Repository\CourseCleanup.Repository.csproj">
+      <Project>{53dbef5b-9dd9-4e3e-afa4-c1db6e918a1a}</Project>
+      <Name>CourseCleanup.Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ProjectInstaller.resx">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

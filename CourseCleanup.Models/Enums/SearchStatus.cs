@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace CourseCleanup.Models.Enums
 {
-    public enum CourseStatus
+    public enum SearchStatus
     {
-        Active = 1,
-        PendingDeletion = 2,
-        Deleted = 3
+        New = 1,
+        Completed = 2,
+        Pending = 3,
+        Failed = 4
     }
 }

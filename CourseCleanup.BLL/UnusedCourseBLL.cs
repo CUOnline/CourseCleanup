@@ -13,9 +13,9 @@ namespace CourseCleanup.BLL
     {
         private readonly IUnusedCourseRepository unusedCourseRepository;
 
-        public UnusedCourseBLL(IUnusedCourseRepository deletedCourseRepository)
+        public UnusedCourseBLL(IUnusedCourseRepository unusedCourseRepository)
         {
-            this.unusedCourseRepository = deletedCourseRepository;
+            this.unusedCourseRepository = unusedCourseRepository;
         }
 
         public UnusedCourse Add(UnusedCourse model)

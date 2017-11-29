@@ -48,9 +48,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CourseCleanupContext.cs" />
+    <Compile Include="CourseSearchQueueRepository.cs" />
+    <Compile Include="Maps\CourseSearchQueueMap.cs" />
     <Compile Include="Migrations\201710301856110_InitialCreate.cs" />
     <Compile Include="Migrations\201710301856110_InitialCreate.Designer.cs">
       <DependentUpon>201710301856110_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711272258063_AddCourseSearchQueue.cs" />
+    <Compile Include="Migrations\201711272258063_AddCourseSearchQueue.Designer.cs">
+      <DependentUpon>201711272258063_AddCourseSearchQueue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711281746127_AddCourseSearchQueueIdToUnusedCourse.cs" />
+    <Compile Include="Migrations\201711281746127_AddCourseSearchQueueIdToUnusedCourse.Designer.cs">
+      <DependentUpon>201711281746127_AddCourseSearchQueueIdToUnusedCourse.cs</DependentUpon>
     </Compile>
     <Compile Include="UnusedCourseRepository.cs" />
     <Compile Include="Maps\UnusedCourseMap.cs" />
@@ -75,6 +85,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201710301856110_InitialCreate.resx">
       <DependentUpon>201710301856110_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711272258063_AddCourseSearchQueue.resx">
+      <DependentUpon>201711272258063_AddCourseSearchQueue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711281746127_AddCourseSearchQueueIdToUnusedCourse.resx">
+      <DependentUpon>201711281746127_AddCourseSearchQueueIdToUnusedCourse.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -14,7 +14,6 @@ namespace CourseCleanup.App_Start
     using CourseCleanup.Interface.BLL;
     using CourseCleanup.Repository;
     using CourseCleanup.Interface.Repository;
-    using Hangfire;
 
     public static class NinjectWebCommon 
     {
@@ -50,7 +49,6 @@ namespace CourseCleanup.App_Start
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
                 RegisterServices(kernel);
-                GlobalConfiguration.Configuration.UseNinjectActivator(kernel);
 
                 return kernel;
             }

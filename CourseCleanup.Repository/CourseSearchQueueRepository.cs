@@ -3,6 +3,8 @@ using CourseCleanup.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
+using System;
+using System.Data.Entity.Validation;
 
 namespace CourseCleanup.Repository
 {
@@ -45,15 +47,29 @@ namespace CourseCleanup.Repository
 
         public CourseSearchQueue Update(CourseSearchQueue model)
         {
-            Context.CourseSearchQueues.AddOrUpdate(model);
-            Context.SaveChanges();
+            try
+            {
+                Context.CourseSearchQueues.AddOrUpdate(model);
+                Context.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                DisplayDbEntityErrors(ex);
+            }
             return model;
         }
 
         public async Task<CourseSearchQueue> UpdateAsync(CourseSearchQueue model)
         {
-            Context.CourseSearchQueues.AddOrUpdate(model);
-            await Context.SaveChangesAsync();
+            try
+            {
+                Context.CourseSearchQueues.AddOrUpdate(model);
+                await Context.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+                Console.Write(ex.ToString());
+            }
             return model;
         }
     }

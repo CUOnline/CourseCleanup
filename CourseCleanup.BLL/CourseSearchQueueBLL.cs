@@ -51,9 +51,9 @@ namespace CourseCleanup.BLL
             return await courseSearchQueueRepository.GetAsync(modelId);
         }
 
-        public async Task<CourseSearchQueue> GetNextSearchToProcess()
+        public CourseSearchQueue GetNextSearchToProcess()
         {
-            return (await courseSearchQueueRepository.GetAllAsync()).Where(x => x.Status == SearchStatus.New).OrderBy(x => x.DateCreated).FirstOrDefault();
+            return courseSearchQueueRepository.GetAll().Where(x => x.Status == SearchStatus.New).OrderBy(x => x.DateCreated).FirstOrDefault();
         }
 
         public CourseSearchQueue Update(CourseSearchQueue model)

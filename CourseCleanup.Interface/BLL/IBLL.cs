@@ -12,6 +12,5 @@ namespace CourseCleanup.Interface.BLL
         T Get(int modelId);
         Task<T> GetAsync(int modelId);
         T Update(T model);
-        Task<T> UpdateAsync(T model);
     }
 }

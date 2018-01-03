@@ -10,6 +10,7 @@ namespace CourseCleanup.Models.Enums
     {
         Active = 1,
         PendingDeletion = 2,
-        Deleted = 3
+        Deleted = 3,
+        PendingReactivation = 4
     }
 }

@@ -5,6 +5,6 @@ namespace CourseCleanup.Interface.BLL
 {
     public interface ICourseSearchQueueBLL : IBLL<CourseSearchQueue>
     {
-        Task<CourseSearchQueue> GetNextSearchToProcess();
+        CourseSearchQueue GetNextSearchToProcess();
     }
 }

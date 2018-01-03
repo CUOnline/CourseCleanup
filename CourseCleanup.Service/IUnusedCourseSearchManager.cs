@@ -4,6 +4,6 @@ namespace CourseCleanup.Service
 {
     public interface IUnusedCourseSearchManager
     {
-        Task RunQueuedSearchesAsync();
+        void RunQueuedSearchesAsync();
     }
 }

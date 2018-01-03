@@ -24,25 +24,25 @@ namespace CourseCleanup.Service
             this.unusedCourseBll = unusedCourseBll;
         }
 
-        public async Task RunQueuedSearchesAsync()
+        public void RunQueuedSearchesAsync()
         {
             try
             {
-                var search = await courseSearchQueueBll.GetNextSearchToProcess();
+                var search = courseSearchQueueBll.GetNextSearchToProcess();
                 if (search != null)
                 {
                     search.Status = SearchStatus.Pending;
-                    await courseSearchQueueBll.UpdateAsync(search);
+                    courseSearchQueueBll.Update(search);
 
                     try
                     {
-                        await RunSearchAsync(search.Id, search.StartTermId, search.EndTermId);
+                        RunSearch(search.Id, search.StartTermId, search.EndTermId);
                     }
                     catch(Exception ex)
                     {
                         search.Status = SearchStatus.Failed;
                         search.StatusMessage = ex.Message;
-                        await courseSearchQueueBll.UpdateAsync(search);
+                        courseSearchQueueBll.Update(search);
                     }
 
                     if (search.Status != SearchStatus.Failed)
@@ -58,11 +58,11 @@ namespace CourseCleanup.Service
             }
         }
 
-        private async Task RunSearchAsync(int searchId, string startTermId, string endTermId)
+        private void RunSearch(int searchId, string startTermId, string endTermId)
         {
             var accountId = ConfigurationManager.AppSettings["CanvasAccountId"];
             var accountsClient = new AccountsClient();
-            var enrollmentTerms = await accountsClient.GetEnrollmentTerms(accountId);
+            var enrollmentTerms = accountsClient.GetEnrollmentTerms(accountId).Result;
             
             // Start by getting all enrollment terms between range
             var subTerms = enrollmentTerms.SkipWhile(x => x.Id != startTermId.ToString()).TakeWhile(x => x.Id != endTermId.ToString()).ToList();
@@ -70,22 +70,21 @@ namespace CourseCleanup.Service
 
             // foreach enrollment term, get all unpublished courses, checking for unused courses
             //var unusedCourses = new List<Course>();
-            DataTable unUsedCourses = new DataTable("UnUsedCourses");
-            unUsedCourses.Columns.Add(new DataColumn(nameof(Course.Id)));
-            unUsedCourses.Columns.Add(new DataColumn(nameof(Course.Name)));
-            unUsedCourses.Columns.Add(new DataColumn("EnrollmentTerm"));
-            unUsedCourses.Columns.Add(new DataColumn(nameof(Course.CourseCode)));
-            unUsedCourses.Columns.Add(new DataColumn(nameof(Course.SisCourseId)));
-
-            var reportGeneratedDate = DateTime.Now;
+            //DataTable unUsedCourses = new DataTable("UnUsedCourses");
+            //unUsedCourses.Columns.Add(new DataColumn(nameof(Course.Id)));
+            //unUsedCourses.Columns.Add(new DataColumn(nameof(Course.Name)));
+            //unUsedCourses.Columns.Add(new DataColumn("EnrollmentTerm"));
+            //unUsedCourses.Columns.Add(new DataColumn(nameof(Course.CourseCode)));
+            //unUsedCourses.Columns.Add(new DataColumn(nameof(Course.SisCourseId)));
+            
 
             foreach (var term in subTerms)
             {
-                var courses = await accountsClient.GetUnpublishedCoursesForTerm(accountId, term.Id);
+                var courses = accountsClient.GetUnpublishedCoursesForTerm(accountId, term.Id).Result;
 
                 foreach (var course in courses)
                 {
-                    if (await IsUnusedCourse(course))
+                    if (IsUnusedCourse(course))
                     {
                         unusedCourseBll.Add(new UnusedCourse
                         {
@@ -100,62 +99,64 @@ namespace CourseCleanup.Service
                 }
             }
             
-            unUsedCourses.WriteXml(@"C:\Temp\UnusedCourses.xml");
+            //unUsedCourses.WriteXml(@"C:\Temp\UnusedCourses.xml");
 
             // Build a csv of the course shells to be emailed
+            
+
             // email it.
         }
 
         /// <summary>
         /// A Course Shell is an unpublished course that has no content or activity
         /// </summary>
-        private async Task<bool> IsUnusedCourse(Course course)
+        private bool IsUnusedCourse(Course course)
         {
             var client = new CoursesClient();
 
-            var courseWithSyllabus = await client.GetWithSyllabusBody(course.Id);
+            var courseWithSyllabus = client.GetWithSyllabusBody(course.Id).Result;
             if (!string.IsNullOrWhiteSpace(courseWithSyllabus.SyllabusBody))
             {
                 return false;
             }
 
-            var enrollments = await client.GetEnrollments(course.Id);
+            var enrollments = client.GetEnrollments(course.Id).Result;
             if (enrollments.Any(x => x.LastActivityAt != null))
             {
                 return false;
             }
 
-            var assignments = await client.GetCourseAssignments(course.Id);
+            var assignments = client.GetCourseAssignments(course.Id).Result;
             if (assignments.Any())
             {
                 return false;
             }
 
-            var modules = await client.GetCourseModules(course.Id);
+            var modules = client.GetCourseModules(course.Id).Result;
             if (modules.Any())
             {
                 return false;
             }
 
-            var files = await client.GetCourseFiles(course.Id);
+            var files = client.GetCourseFiles(course.Id).Result;
             if (files.Any())
             {
                 return false;
             }
 
-            var pages = await client.GetCoursePages(course.Id);
+            var pages = client.GetCoursePages(course.Id).Result;
             if (pages.Any())
             {
                 return false;
             }
 
-            var discussions = await client.GetCourseDiscussions(course.Id);
+            var discussions = client.GetCourseDiscussions(course.Id).Result;
             if (discussions.Any())
             {
                 return false;
             }
 
-            var quizzes = await client.GetCourseQuizzes(course.Id);
+            var quizzes = client.GetCourseQuizzes(course.Id).Result;
             if (quizzes.Any())
             {
                 return false;

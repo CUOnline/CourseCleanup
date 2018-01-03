@@ -92,7 +92,8 @@ namespace CourseCleanup.Service
                             CourseSISID = course.SisCourseId,
                             CourseName = course.Name,
                             Status = CourseStatus.Active,
-                            Term = term.Id,
+                            TermId = term.Id,
+                            Term = term.Name,
                             CourseSearchQueueId = searchId
                         });
                     }
@@ -101,7 +102,7 @@ namespace CourseCleanup.Service
             
             //unUsedCourses.WriteXml(@"C:\Temp\UnusedCourses.xml");
 
-            // Build a csv of the course shells to be emailed
+            // Build a csv of the unused courses to be emailed
             
 
             // email it.

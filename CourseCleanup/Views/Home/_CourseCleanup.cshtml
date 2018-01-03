@@ -64,6 +64,7 @@
                                     <td>@search.SubmittedByEmail</td>
                                     <td>@search.Status</td>
                                     <td>@search.StatusMessage</td>
+                                    <td>@Html.ActionLink("View Report", "Index", "Report", routeValues: new { courseSearchQueueId = search.Id }, htmlAttributes: null)</td>
                                 </tr>
                             }
                         </tbody>

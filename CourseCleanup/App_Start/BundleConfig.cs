@@ -26,6 +26,16 @@ namespace CourseCleanup
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
+                "~/Scripts/kendo/2017.3.1206/kendo.all.min.js",
+                "~/Scripts/kendo/2017.3.1206/kendo.aspnetmvc.min.js"));
+
+            bundles.Add(new StyleBundle("~/Content/kendo/css").Include(
+                "~/Content/kendo/2017.3.1206/kendo.bootstrap.min.css",
+                "~/Content/kendo/2017.3.1206/kendo.common-bootstrap.min.css"));
+
+            bundles.IgnoreList.Clear();
         }
     }
 }

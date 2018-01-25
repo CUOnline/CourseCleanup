@@ -2487,7 +2487,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Home\_IndexHeader.cshtml" />
     <Content Include="Views\Home\_CourseCleanup.cshtml" />
-    <Content Include="Views\Home\DeletedCourses.cshtml" />
+    <Content Include="Views\Report\DeletedCoursesReport.cshtml" />
     <Content Include="Scripts\kendo\2017.3.1206\messages\kendo.messages.zh-TW.min.js.map" />
     <Content Include="Scripts\kendo\2017.3.1206\messages\kendo.messages.zh-HK.min.js.map" />
     <Content Include="Scripts\kendo\2017.3.1206\messages\kendo.messages.zh-CN.min.js.map" />

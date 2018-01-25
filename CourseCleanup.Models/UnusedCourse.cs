@@ -10,6 +10,9 @@ namespace CourseCleanup.Models
 {
     public class UnusedCourse : ModelBase
     {
+        [Display(Name = "Course Id")]
+        public string CourseId { get; set; }
+
         [Display(Name = "Course Name")]
         public string CourseName { get; set; }
 

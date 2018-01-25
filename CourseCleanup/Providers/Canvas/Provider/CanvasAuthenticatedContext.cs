@@ -23,13 +23,14 @@ namespace CourseCleanup.Web.Providers.Canvas.Provider
         /// <param name="accessToken">Canvas Access token</param>
         /// <param name="refreshToken">Canvas Refresh token</param>
         /// <param name="instanceUrl">Canvas instance url</param>
-        public CanvasAuthenticatedContext(IOwinContext context, JObject user, string accessToken, string refreshToken)
+        public CanvasAuthenticatedContext(IOwinContext context, JObject user, string email, string accessToken, string refreshToken)
             : base(context)
         {
             AccessToken = accessToken;
             RefreshToken = refreshToken;
             Id = TryGetValue(user, "id");
             UserName = TryGetValue(user, "name");
+            Email = email;
         }
 
         /// <summary>
@@ -41,6 +42,11 @@ namespace CourseCleanup.Web.Providers.Canvas.Provider
         /// Gets the Canvas username
         /// </summary>
         public string UserName { get; private set; }
+
+        /// <summary>
+        /// Gets the Canvas User Email
+        /// </summary>
+        public string Email { get; set; }
 
         /// <summary>
         /// Gets the Canvas access token

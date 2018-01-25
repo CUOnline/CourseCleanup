@@ -67,8 +67,6 @@ namespace CourseCleanup.Controllers
 
                 //model.Terms.Insert(0, new SelectListItem() { Text = "Select Term", Value = null });
 
-                model.UserEmail = await GetCurrentUserEmail();
-
                 return View(model);
             }
         }
@@ -94,7 +92,7 @@ namespace CourseCleanup.Controllers
                 Value = x.Id.ToString()
             }).ToList();
 
-            viewModel.CourseSearchQueues = await courseSearchQueueBll.GetAllAsync();
+            viewModel.CourseSearchQueues = (await courseSearchQueueBll.GetAllAsync()).OrderBy(x => x.DateCreated);
 
             return View(viewModel);
         }

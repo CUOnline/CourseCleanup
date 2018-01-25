@@ -12,6 +12,7 @@ using Microsoft.Owin.Security.Infrastructure;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using CourseCleanup.Web.Providers.Canvas.Provider;
+using Canvas.Clients;
 
 namespace CourseCleanup.Web.Providers.Canvas
 {
@@ -88,7 +89,14 @@ namespace CourseCleanup.Web.Providers.Canvas
                 var refreshToken = (string)response.refresh_token;
                 var user = (JObject)response.user;
 
-                var context = new CanvasAuthenticatedContext(Context, user, accessToken, refreshToken)
+                // Request the profile
+                var usersClient = new UsersClient();
+                var userProfile = await usersClient.GetUserProfile(userId);
+                //var emailRequest = new HttpRequestMessage(HttpMethod.Get, string.Format(Options.Endpoints.ProfileEndpoint, userId));
+                //emailRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                //emailRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var context = new CanvasAuthenticatedContext(Context, user, userProfile.PrimaryEmail, accessToken, refreshToken)
                 {
                     Identity = new ClaimsIdentity(
                         Options.AuthenticationType,
@@ -104,6 +112,11 @@ namespace CourseCleanup.Web.Providers.Canvas
                 if (!string.IsNullOrEmpty(context.UserName))
                 {
                     context.Identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, context.UserName, XmlSchemaString, Options.AuthenticationType));
+                }
+
+                if (!string.IsNullOrEmpty(context.Email))
+                {
+                    context.Identity.AddClaim(new Claim(ClaimTypes.Email, context.Email, XmlSchemaString, Options.AuthenticationType));
                 }
 
                 context.Properties = properties;

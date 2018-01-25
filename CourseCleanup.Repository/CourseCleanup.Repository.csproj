@@ -66,6 +66,10 @@
     <Compile Include="Migrations\201801041734090_AddTermToUnusedCourse.Designer.cs">
       <DependentUpon>201801041734090_AddTermToUnusedCourse.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801252053209_AddCourseIdToUnusedCourses.cs" />
+    <Compile Include="Migrations\201801252053209_AddCourseIdToUnusedCourses.Designer.cs">
+      <DependentUpon>201801252053209_AddCourseIdToUnusedCourses.cs</DependentUpon>
+    </Compile>
     <Compile Include="UnusedCourseRepository.cs" />
     <Compile Include="Maps\UnusedCourseMap.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -98,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801041734090_AddTermToUnusedCourse.resx">
       <DependentUpon>201801041734090_AddTermToUnusedCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801252053209_AddCourseIdToUnusedCourses.resx">
+      <DependentUpon>201801252053209_AddCourseIdToUnusedCourses.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

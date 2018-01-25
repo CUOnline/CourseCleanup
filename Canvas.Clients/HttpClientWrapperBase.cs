@@ -143,6 +143,20 @@ namespace Canvas.Clients
             throw new Exception(errMsg);
         }
 
+        protected async Task<bool> ExecuteDelete(string apiPath)
+        {
+            var response = await Client().DeleteAsync(baseUrl + "/" + apiPath);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+                return responseString.Contains("true");
+            }
+
+            var errMsg = String.Format("Failed to call the API. HTTP Status: {0}, Reason {1}", response.StatusCode, response.ReasonPhrase);
+            throw new Exception(errMsg);
+        }
+
         #region Dispose
         ~HttpClientWrapperBase()
         {

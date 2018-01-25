@@ -59,7 +59,10 @@ namespace Canvas.Clients
             return await ExecuteGetAll<Quiz>(ApiPath);
         }
 
-        //quizzes,
-        ///api/v1/courses/:course_id/quizzes
+        public async Task<bool> DeleteCourse(string courseId)
+        {
+            ApiPath = ApiController + $@"/{courseId}?event=delete";
+            return await ExecuteDelete(ApiPath);
+        }
     }
 }

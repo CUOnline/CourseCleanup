@@ -29,7 +29,8 @@ namespace CourseCleanup
                     new CanvasAuthenticationOptions.CanvasAuthenticationEndpoints()
                     {
                         AuthorizationEndpoint = baseUrl + "login/oauth2/auth",
-                        TokenEndpoint = baseUrl + "login/oauth2/token"
+                        TokenEndpoint = baseUrl + "login/oauth2/token",
+                        ProfileEndpoint = baseUrl + "api/v1/users/{0}/profile"
                     },
                 ClientId = ConfigurationManager.AppSettings["ClientId"],
                 ClientKey = ConfigurationManager.AppSettings["ClientKey"]

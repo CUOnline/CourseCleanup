@@ -16,7 +16,7 @@ namespace CourseCleanup.Service
                 var location = System.Reflection.Assembly.GetEntryAssembly().Location;
                 var directoryPath = Path.GetDirectoryName(location);
 
-                using (var writer = new StreamWriter(directoryPath + @"\PublicationManager.PubMedSearch.Log.txt", true))
+                using (var writer = new StreamWriter(directoryPath + @"\CourseCleanup.Log.txt", true))
                 {
                     writer.WriteLine("{0}: " + text, DateTime.Now.ToString(CultureInfo.InvariantCulture));
                     writer.Close();

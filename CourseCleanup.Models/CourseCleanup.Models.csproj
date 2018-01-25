@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CourseSearchQueue.cs" />
+    <Compile Include="EmailTemplate.cs" />
     <Compile Include="Enums\CourseStatus.cs" />
     <Compile Include="Enums\SearchStatus.cs" />
     <Compile Include="UnusedCourse.cs" />

@@ -20,10 +20,16 @@ namespace CourseCleanup.Web.Providers.Canvas
             /// Endpoint which is used to exchange code for access token
             /// </summary>
             public string TokenEndpoint { get; set; }
+
+            /// <summary>
+            /// Endpoint which is used to access user profile information, such as the email
+            /// </summary>
+            public string ProfileEndpoint { get; set; }
         }
 
         private const string AuthorizationEndPoint = "";
         private const string TokenEndpoint = "";
+        private const string ProfileEndpoint = "";
 
         /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used
@@ -112,7 +118,8 @@ namespace CourseCleanup.Web.Providers.Canvas
             Endpoints = new CanvasAuthenticationEndpoints
             {
                 AuthorizationEndpoint = AuthorizationEndPoint,
-                TokenEndpoint = TokenEndpoint
+                TokenEndpoint = TokenEndpoint,
+                ProfileEndpoint = ProfileEndpoint
             };
         }
     }

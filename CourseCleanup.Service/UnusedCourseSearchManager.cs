@@ -17,11 +17,13 @@ namespace CourseCleanup.Service
     {
         private readonly ICourseSearchQueueBLL courseSearchQueueBll;
         private readonly IUnusedCourseBLL unusedCourseBll;
+        private readonly ISendEmailBLL sendEmailBll;
 
-        public UnusedCourseSearchManager(ICourseSearchQueueBLL courseSearchQueueBll, IUnusedCourseBLL unusedCourseBll)
+        public UnusedCourseSearchManager(ICourseSearchQueueBLL courseSearchQueueBll, IUnusedCourseBLL unusedCourseBll, ISendEmailBLL sendEmailBll)
         {
             this.courseSearchQueueBll = courseSearchQueueBll;
             this.unusedCourseBll = unusedCourseBll;
+            this.sendEmailBll = sendEmailBll;
         }
 
         public void RunQueuedSearchesAsync()
@@ -50,6 +52,13 @@ namespace CourseCleanup.Service
                         search.Status = SearchStatus.Completed;
                         courseSearchQueueBll.Update(search);
                     }
+
+                    Dictionary<string, string> subjectReplacements = new Dictionary<string, string>()
+                    {
+                        { "@Status", Enum.GetName(typeof(SearchStatus), search.Status) }
+                    };
+
+                    sendEmailBll.SendEmail(search.SubmittedByEmail, EmailTemplate.UnusedCourseSearch, new Dictionary<string, string>(), subjectReplacements);
                 }
             }
             catch (Exception ex)
@@ -68,16 +77,6 @@ namespace CourseCleanup.Service
             var subTerms = enrollmentTerms.SkipWhile(x => x.Id != startTermId.ToString()).TakeWhile(x => x.Id != endTermId.ToString()).ToList();
             subTerms.Add(enrollmentTerms.First(x => x.Id == endTermId.ToString()));
 
-            // foreach enrollment term, get all unpublished courses, checking for unused courses
-            //var unusedCourses = new List<Course>();
-            //DataTable unUsedCourses = new DataTable("UnUsedCourses");
-            //unUsedCourses.Columns.Add(new DataColumn(nameof(Course.Id)));
-            //unUsedCourses.Columns.Add(new DataColumn(nameof(Course.Name)));
-            //unUsedCourses.Columns.Add(new DataColumn("EnrollmentTerm"));
-            //unUsedCourses.Columns.Add(new DataColumn(nameof(Course.CourseCode)));
-            //unUsedCourses.Columns.Add(new DataColumn(nameof(Course.SisCourseId)));
-            
-
             foreach (var term in subTerms)
             {
                 var courses = accountsClient.GetUnpublishedCoursesForTerm(accountId, term.Id).Result;
@@ -88,6 +87,7 @@ namespace CourseCleanup.Service
                     {
                         unusedCourseBll.Add(new UnusedCourse
                         {
+                            CourseId = course.Id,
                             CourseCode = course.CourseCode,
                             CourseSISID = course.SisCourseId,
                             CourseName = course.Name,
@@ -99,13 +99,6 @@ namespace CourseCleanup.Service
                     }
                 }
             }
-            
-            //unUsedCourses.WriteXml(@"C:\Temp\UnusedCourses.xml");
-
-            // Build a csv of the unused courses to be emailed
-            
-
-            // email it.
         }
 
         /// <summary>

@@ -4,12 +4,7 @@
     ViewBag.Title = "Home Page";
 }
 
-@if (true)
-{
-    Html.RenderPartial("_CourseCleanup", Model);
-}
-
-@*@if (Model.Authorized)
+@if (Model.Authorized)
 {
     Html.RenderPartial("_CourseCleanup", Model);
 }
@@ -27,4 +22,4 @@ else
             @ViewBag.error
         </div>
     }
-}*@
+}

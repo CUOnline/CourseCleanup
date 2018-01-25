@@ -31,6 +31,7 @@ textarea {
 .panel {
     padding-left: 15px;
     padding-right: 15px;
+    padding-bottom: 15px;
 }
 
 .control-label {
@@ -39,4 +40,8 @@ textarea {
 
 .float-right {
     float: right;
+}
+
+.k-pager-numbers .k-state-selected {
+    border-radius: 0px !important;
 }

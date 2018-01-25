@@ -21,6 +21,18 @@ namespace CourseCleanup.Controllers
             this.unusedCourseBll = unusedCourseBll;
         }
 
+        public async Task<ActionResult> DeletedCoursesReport()
+        {
+            var deletedCourses = unusedCourseBll.GetAll().Where(x => x.Status == Models.Enums.CourseStatus.Deleted);
+
+            var model = new SearchQueueResultViewModel()
+            {
+                UnusedCourses = deletedCourses.ToList()
+            };
+
+            return View(model);
+        }
+
         public async Task<ActionResult> Index(int courseSearchQueueId)
         {
             var unusedCourses = unusedCourseBll.GetAll().Where(x => x.CourseSearchQueueId == courseSearchQueueId);
@@ -30,8 +42,24 @@ namespace CourseCleanup.Controllers
                 CourseSearchQueueId = courseSearchQueueId,
                 UnusedCourses = unusedCourses.ToList()
             };
-            
+
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Index(SearchQueueResultViewModel viewModel)
+        {
+            var unusedCourses = unusedCourseBll.GetAll().Where(x => x.CourseSearchQueueId == viewModel.CourseSearchQueueId).ToList();
+
+            foreach (var course in unusedCourses)
+            {
+                course.Status = Models.Enums.CourseStatus.PendingDeletion;
+                unusedCourseBll.Update(course);
+            }
+
+            viewModel.UnusedCourses = unusedCourses;
+
+            return View(viewModel);
         }
     }
 }

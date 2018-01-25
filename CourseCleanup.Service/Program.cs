@@ -15,12 +15,13 @@ namespace CourseCleanup.Service
                 
                 var unusedCourseBll = kernel.Get<IUnusedCourseBLL>();
                 var unusedCourseSearchManager = kernel.Get<IUnusedCourseSearchManager>();
+                var unusedCourseStatusUpdateManager = kernel.Get<IUnusedCourseStatusUpdateManager>();
 
                 ServiceBase[] ServicesToRun;
                 ServicesToRun = new ServiceBase[]
                 {
                     new CUOUnusedCourseSearch(unusedCourseSearchManager),
-                    new CUOUnusedCourseDelete()
+                    new CUOUnusedCourseDelete(unusedCourseStatusUpdateManager)
                 };
 
                 ServiceBase.Run(ServicesToRun);

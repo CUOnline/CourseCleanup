@@ -1,0 +1,34 @@
+﻿@using CourseCleanup.Models
+@model SearchQueueResultViewModel
+@{
+    ViewBag.Title = "Deleted Courses";
+}
+
+<p>
+    <h1>Deleted Courses Report</h1>
+    @Html.ActionLink("Home", "Index", "Home")
+</p>
+
+<hr />
+
+@(Html.Kendo().Grid(Model.UnusedCourses)
+                .Name("grid")
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.CourseCode);
+                    columns.Bound(c => c.CourseName);
+                    columns.Bound(c => c.CourseSISID);
+                    columns.Bound(c => c.Term);
+                    columns.Bound(c => c.Status);
+                })
+                .Sortable()
+                .Groupable()
+                .Filterable()
+                .Pageable(pageable => pageable
+                    .PageSizes(true)
+                    .ButtonCount(5))
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .PageSize(12)
+                    .ServerOperation(false))
+)

@@ -74,6 +74,7 @@ _[Ss]cripts
 *.ncrunchsolution
 *.dot[Cc]over
 AppSettings.config
+ConnectionStrings.config
 /.vs
 /CourseCleanup/Content/kendo/
 /CourseCleanup/Scripts/kendo/

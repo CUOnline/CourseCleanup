@@ -28,12 +28,12 @@ namespace CourseCleanup
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
-                "~/Scripts/kendo/2017.3.1206/kendo.all.min.js",
-                "~/Scripts/kendo/2017.3.1206/kendo.aspnetmvc.min.js"));
+                "~/Scripts/kendo/kendo.all.min.js",
+                "~/Scripts/kendo/kendo.aspnetmvc.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/kendo/css").Include(
-                "~/Content/kendo/2017.3.1206/kendo.fiori.min.css",
-                "~/Content/kendo/2017.3.1206/kendo.common-fiori.min.css"));
+                "~/Content/kendo/kendo.fiori.min.css",
+                "~/Content/kendo/kendo.common-fiori.min.css"));
 
             bundles.IgnoreList.Clear();
         }

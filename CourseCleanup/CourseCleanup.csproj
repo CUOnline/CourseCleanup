@@ -1429,6 +1429,7 @@
     <Content Include="Content\kendo\2017.3.1206-source\dataviz\kendo.dataviz.blueopal.less" />
     <Content Include="Content\kendo\2017.3.1206-source\dataviz\kendo.dataviz.black.less" />
     <Content Include="Content\kendo\2017.3.1206-source\common\transitions.less" />
+    <None Include="Properties\PublishProfiles\Test.pubxml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
